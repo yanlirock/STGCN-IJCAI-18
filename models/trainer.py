@@ -77,6 +77,7 @@ def model_train(inputs, blocks, args, sum_path='./output/tensorboard'):
             start_time = time.time()
             for j, x_batch in enumerate(
                     gen_batch(inputs.get_data('train'), batch_size, dynamic_batch=True, shuffle=True)):
+                # x_batch[:, 0:n_his + 1, :, :] 
                 summary, _ = sess.run([merged, train_op], feed_dict={x: x_batch[:, 0:n_his + 1, :, :], keep_prob: 1.0})
                 writer.add_summary(summary, i * epoch_step + j)
                 if j % 50 == 0:
